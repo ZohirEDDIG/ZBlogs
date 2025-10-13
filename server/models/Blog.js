@@ -8,14 +8,14 @@ const blogSchema = Schema(
         description: { type: String, maxlength: 200, required: true },
         content: { type: [], required: true },
         topics: { type: [String], required: true },
-        author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+        author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
         activity: {
             totalLikes: { type: Number, default: 0 },
             totalComments: { type: Number, default: 0 },
             totalReads: { type: Number, default: 0 },
             totalParentComments: { type: Number, default: 0 },
         },
-        comments: { type: [mongoose.Schema.Types.ObjectId], ref: 'Comment', default: [] },
+        comments: { type: [Schema.Types.ObjectId], ref: 'Comment', default: [] },
         isDraft: { type: Boolean, default: false },
     },
     { timestamps: true }
