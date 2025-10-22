@@ -4,7 +4,7 @@ const LoginWithGoogle = () => {
 
             <div>
 
-                <img src='/google-logo.svg' alt='Google logo' className='w-8' />
+                <img className='w-8' src='/google-logo.svg' alt='Google logo' />
 
             </div>
 

@@ -32,9 +32,9 @@ const register = async (req, res) => {
 
         await newUser.save();
 
-        return res.status(200).json({ message: 'User registered successfully' });
+        res.status(200).json({ message: 'User registered successfully' });
     } catch (error) {
-        console.error('Failed to regisyter user:', error.message);
+        console.error('Failed to register user:', error.message);
         res.status(500).json({ error: 'Failed to register user' });
     }
 };
@@ -50,7 +50,7 @@ const login = async (req, res) => {
 
         const user = await User.findOne({ 'personalInfo.email': email });
         if (!user || !(await bcrypt.compare(password, user.personalInfo.password))) {
-            return res.status(400).json({ message: 'Invalid credentials' });
+            return res.status(400).json({ error: 'Invalid credentials' });
         }
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '1d' });
@@ -93,7 +93,6 @@ const me = async (req, res) => {
         }
 
         res.status(200).json({ user });
-
     } catch (error) {
         console.error('Failed to fetch current user:', error.message);
         res.status(500).json({ error: 'Failed to fetch current user' });

@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-import { register, login, me } from '@/pages/apis/auth';
+import { register, login, me } from '@/pages/auth/apis/auth';
 
 import AuthContext from './AuthContext';
 
@@ -66,9 +66,9 @@ const AuthProvider = ({ children }) => {
     } , [meQuery.isSuccess, meQuery.isError]);
 
     const value = {
+        token,
         user,
         setUser,
-        token,
         registerMutation,
         loginMutation,
         logout, 

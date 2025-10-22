@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -7,9 +7,11 @@ import { mailOutline, keyOutline, eyeOutline, eyeOffOutline } from 'ionicons/ico
 
 import useAuth from '@/contexts/auth/useAuth';
 
-import { loginEmailValidator, loginPasswordValidator } from '../validators/auth';
+import { loginEmailValidator, loginPasswordValidator } from './validators/auth';
 
-import { Title, Or, LoginWithGoogle } from '../components';
+import resetMutation from './helpers/resetMutation';
+
+import { Title, Or, LoginWithGoogle } from './components';
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -25,6 +27,10 @@ const Login = () => {
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
+
+    useEffect(() => {
+        return () => loginMutation.reset();
+    }, [])
 
     return (
         <main className='w-screen h-screen'>
@@ -50,19 +56,22 @@ const Login = () => {
 
                             <IonIcon icon={mailOutline} />
 
-                            <input className='w-full' type='email' {...register('email', loginEmailValidator)} placeholder='Email'/>
+                            <input className='w-full' type='email' {...register('email', loginEmailValidator)} placeholder='Email' onFocus={(e) => resetMutation(e, loginMutation)} />
 
                         </div>
 
                         {/* Email Client Error */}
                         {errors?.email && <p className='error'>{errors.email.message}</p>}
 
+                        {/* Email Server Error */}
+                        {loginMutation.isError && loginMutation.error?.response?.data?.errors?.email?.message && <p className='error'>{loginMutation.error.response.data.errors.email.message}</p>} 
+
                         {/* Password */}
                         <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'>
 
                             <IonIcon icon={keyOutline} />
 
-                            <input className='w-full' type={isPasswordVisible ? 'text' : 'password'} {...register('password', loginPasswordValidator)} placeholder='Password'/>
+                            <input className='w-full' type={isPasswordVisible ? 'text' : 'password'} {...register('password', loginPasswordValidator)} placeholder='Password' onFocus={(e) => resetMutation(e, loginMutation)}  />
 
                             <button type='button' onClick={togglePasswordVisibility}>
 
@@ -74,6 +83,15 @@ const Login = () => {
 
                         {/* Password Client Error */}
                         {errors?.password && <p className='error'>{errors.password.message}</p>}
+
+                        {/* Password Server Error */}
+                        {loginMutation.isError && loginMutation.error?.response?.data?.errors?.password?.message && <p className='error'>{loginMutation.error.response.data.errors.password.message}</p>} 
+
+                        {/* Login Error */}
+                        {loginMutation.isError && loginMutation.error?.response?.data?.error && <p className='error'>{loginMutation.error.response.data.error}</p>}
+
+                        {/* Server Error */}
+                        {loginMutation.isError && loginMutation.error.message === 'Network Error' && <p className='error'>Internal server error</p>}
 
                         {/* Forgot Password */}
                         <Link className='text-gray-600 text-sm underline' to='/recover'>Forgot yout Password?</Link>

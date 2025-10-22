@@ -16,7 +16,7 @@ const blogSchema = Schema(
             totalParentComments: { type: Number, default: 0 },
         },
         comments: { type: [Schema.Types.ObjectId], ref: 'Comment', default: [] },
-        isDraft: { type: Boolean, default: false },
+        isDraft: { type: Boolean },
     },
     { timestamps: true }
 );

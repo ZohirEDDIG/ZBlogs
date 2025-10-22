@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -7,9 +7,11 @@ import { personOutline, mailOutline, keyOutline, eyeOutline, eyeOffOutline } fro
 
 import useAuth from '@/contexts/auth/useAuth';
 
-import { registerFullNameValidator, registerEmailValidator, registerPasswordValidator } from '../validators/auth';
+import { registerFullNameValidator, registerEmailValidator, registerPasswordValidator } from './validators/auth';
 
-import { Title, Or, LoginWithGoogle } from '../components';
+import resetMutation from './helpers/resetMutation';
+
+import { Title, Or, LoginWithGoogle } from './components';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -26,6 +28,10 @@ const Register = () => {
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
+
+    useEffect(() => {
+        return () => registerMutation.reset();
+    }, [])
 
     return (
         <main className='w-screen h-screen flex justify-center items-center'>
@@ -51,32 +57,37 @@ const Register = () => {
 
                             <IonIcon icon={personOutline} />
                             
-                            <input className='w-full' type='text' {...register('fullName', registerFullNameValidator)} placeholder='Full Name'/>
+                            <input className='w-full' type='text' {...register('fullName', registerFullNameValidator)} placeholder='Full Name' onFocus={(e) => resetMutation(e, registerMutation)} />
 
                         </div>
 
-                        {/* Email Client Error */}
+                        {/* FUll Name Client Error */}
                         {errors?.fullName && <p className='error'>{errors.fullName.message}</p>}
 
+                        {/* Full Name Server Error */}
+                        {registerMutation.isError && registerMutation.error?.response?.data?.errors?.fullName?.message && <p className='error'>{registerMutation.error.response.data.errors.fullName.message}</p>} 
 
                         {/* Email */}
                         <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'>
 
                             <IonIcon icon={mailOutline} />
 
-                            <input className='w-full' type='email' {...register('email', registerEmailValidator)} placeholder='Email'/>
+                            <input className='w-full' type='email' {...register('email', registerEmailValidator)} placeholder='Email' onFocus={(e) => resetMutation(e, registerMutation)}/>
 
                         </div>
 
-                        {/* Password Client Error */}
+                        {/* Email Client Error */}
                         {errors?.email && <p className='error'>{errors.email.message}</p>}
+
+                        {/* Email Server Error */}
+                        {registerMutation.isError && registerMutation.error?.response?.data?.errors?.email?.message && <p className='error'>{registerMutation.error.response.data.errors.email.message}</p>} 
 
                         {/* Password */}
                         <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'>
 
                             <IonIcon icon={keyOutline} />
 
-                            <input className='w-full' type={isPasswordVisible ? 'text' : 'password'} {...register('password', registerPasswordValidator)} placeholder='Password'/>
+                            <input className='w-full' type={isPasswordVisible ? 'text' : 'password'} {...register('password', registerPasswordValidator)} placeholder='Password' onFocus={(e) => resetMutation(e, registerMutation)}/>
 
                             <button type='button' onClick={togglePasswordVisibility}>
 
@@ -88,6 +99,15 @@ const Register = () => {
 
                         {/* Password Client Error */}
                         {errors?.password && <p className='error'>{errors.password.message}</p>}
+
+                        {/* Password Server Error */}
+                        {registerMutation.isError && registerMutation.error?.response?.data?.errors?.password?.message && <p className='error'>{registerMutation.error.response.data.errors.password.message}</p>} 
+
+                        {/* Login Error */}
+                        {registerMutation.isError && registerMutation.error?.response?.data?.error && <p className='error'>{registerMutation.error.response.data.error}</p>}
+
+                        {/* Server Error */}
+                        {registerMutation.isError && registerMutation.error.message === 'Network Error' && <p className='error'>Internal server error</p>}
 
                         {/* Terms and Privacy */}
                         <p className='text-gray-600 text-[8px] text-center'>By registering an account you agree to our <Link className='text-black underline' to='/terms'>User agreement</Link> and <Link className='text-black underline' to='/privacy'>Privacy policy</Link>.</p>

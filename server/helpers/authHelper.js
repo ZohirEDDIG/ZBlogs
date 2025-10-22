@@ -20,7 +20,17 @@ const generateUniqueUsername = async (email) => {
 };
 
 const generateProfileImage = () => {
-    const profileImages = ['https://api.dicebear.com/9.x/thumbs/svg?seed=Zed', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Alex', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Nova', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Luna', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Kai', 'https://api.dicebear.com/9.x/thumbs/svg?seed=River', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Blaze', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Echo', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Ivy', 'https://api.dicebear.com/9.x/thumbs/svg?seed=Rune'];
+    const profileImages = ['https://api.dicebear.com/9.x/thumbs/svg?seed=Zed', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Alex', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Nova', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Luna', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Kai', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=River', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Blaze', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Echo', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Ivy', 
+                            'https://api.dicebear.com/9.x/thumbs/svg?seed=Rune'
+    ];
 
     const randomIndex = Math.floor(Math.random() * profileImages.length);
 
