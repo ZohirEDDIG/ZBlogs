@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { register, login, me } from '@/pages/auth/apis/auth';
@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     const navigate = useNavigate();
+      const location = useLocation();
 
     const registerMutation = useMutation({ mutationFn: register });
     const loginMutation = useMutation({ mutationFn: login });
@@ -44,12 +45,14 @@ const AuthProvider = ({ children }) => {
         }
     }, [registerMutation.isSuccess]);
 
+    const from = location.state?.from?.pathname || '/';
+
     useEffect(() => {
         if (loginMutation.isSuccess) {
             toast.success(loginMutation.data.data.message);
             localStorage.setItem('zblogs_auth_token', loginMutation.data.data.token);
             setToken(loginMutation.data.data.token);
-            navigate('/', { replace: true });
+            navigate(from, { replace: true });
         }
     }, [loginMutation.isSuccess]);
 

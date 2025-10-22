@@ -3,6 +3,10 @@
 @import 'tailwindcss';
 
 @layer components {
+    .ctn {
+        @apply p-2 sm:px-8 md:px-16
+    }
+
     .error {
         @apply text-red-600 text-xs;
     }
