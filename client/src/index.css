@@ -4,7 +4,7 @@
 
 @layer components {
     .ctn {
-        @apply p-2 sm:px-8 md:px-16
+        @apply p-4 sm:px-8 md:px-16
     }
 
     .error {

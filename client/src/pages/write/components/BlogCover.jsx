@@ -11,7 +11,7 @@ const BlogCover = () => {
                 <label className='text-gray-500 w-full h-full flex justify-center items-center cursor-pointer select-none' htmlFor='blog-cover'>
 
                     {
-                        blogCover ? <img src={blogCover} alt='Blog cover' /> :  <h1 className='sm:text-xl'>Blog Cover</h1>
+                        blogCover ? <img className='w-full max-w-full h-full max-h-full' src={blogCover} alt='Blog cover' /> :  <h1 className='sm:text-xl'>Blog Cover</h1>
                     }
 
                 </label>

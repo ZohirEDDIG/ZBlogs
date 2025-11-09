@@ -118,7 +118,7 @@ const Register = () => {
                             type='submit'
                             disabled={registerMutation.isLoading}
                         >
-                            {registerMutation.isLoading ? 'Registering...' : 'Register'}
+                            {registerMutation.isPending ? 'Registering...' : 'Register'}
                         </button>
 
                     </form>

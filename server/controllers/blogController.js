@@ -85,8 +85,6 @@ const uploadBlog = async (req, res) => {
                 isDraft: isDraft
             });
 
-            console.log(newBlog);
-            
             await newBlog.save();
 
             await User.updateOne({ _id: user }, { $push: { blogs: newBlog._id }});
@@ -105,14 +103,60 @@ const uploadBlog = async (req, res) => {
 
             await newBlog.save();
 
-            await User.updateOne({ _id: user }, { $push: { blogs: newBlog._id, $inc: { totalPosts: 1 }}});
+            await User.updateOne({ _id: user }, { $push: { blogs: newBlog._id }, $inc: { 'accountInfo.totalPosts': 1 }});
         }
 
         return res.status(200).json({ message: 'Blog uploaded successfully' });
     } catch (error) {
         console.error('Failed to upload blog:', error);
-        return res.status(500).json({ error: 'Failed to upload blog: ', expl: error.message });
+        return res.status(500).json({ error: 'Failed to upload blog' });
     }
 }
 
-export { uploadImageByFile, uploadImageByUrl, uploadBlog };
+const getLatestBlogs = async (req, res) => {
+    try {
+        const blogs = await Blog.find({ isDraft: false })
+        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
+        .sort({ createdAt: -1 })
+        .select("-_id blogId cover title description topics activity createdAt");
+
+        return res.status(200).json({ blogs });
+    } catch (error) {
+        console.error('Failed to fetch latest blogs:', error);
+        return res.status(500).json({ error: 'Failed to fetch latest blogs' });
+    } 
+}
+
+const getTrendingBlogs = async (req, res) => {
+    try {
+        const blogs = await Blog.find({ isDraft: false })
+        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
+        .sort({ "activity.totalReads": -1, "activity.totalLikes": -1, "createdAt": -1, })
+        .select("-_id blogId title description  createdAt");
+
+        return res.status(200).json({ blogs });
+    } catch (error) {
+        console.error('Failed to fetch trednding blogs:', error);
+        return res.status(500).json({ error: 'Failed to fetch trending blogs' });
+    } 
+}
+
+const getTopics = async (req, res) => {
+    try {
+        const topics = (await Blog.aggregate([
+            { $unwind: "$topics" },  
+            { $group: { _id: "$topics", count: { $sum: 1 } } },
+            { $sort: { count: -1 } }, 
+            { $limit: 10 },  
+            { $project: { _id: 0, topic: "$_id" } }
+        ])).map(t => `${t.topic.substring(0, 1).toUpperCase()}${t.topic.substring(1)}`);
+
+        return res.status(200).json({ topics });
+    } catch (error) {
+        console.error('Failed to fetch topics:', error);
+        return res.status(500).json({ error: 'Failed to fetch topics' });
+    }
+};
+
+
+export { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics };

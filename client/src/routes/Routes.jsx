@@ -9,11 +9,12 @@ import GuestRoute from '../pages/auth/GuestRoute';
 import ProtectedRoute from '../pages/auth/ProtectedRoute';
 
 import WriteProvider from '../pages/write/context/WriteProvider';
+import BlogsProvider from '../pages/blogs/context/BlogsProvider';
 
 const Routes = () => {
     return (
         <RRDRoutes>
-            <Route path='/' element={<Blogs />} />
+            <Route path='/' element={<BlogsProvider><Blogs /></BlogsProvider>} />
             <Route path='/login' element={<GuestRoute><Login /></GuestRoute>} />
             <Route path='/register' element={<GuestRoute><Register /></GuestRoute>} />
             <Route path='/write' element={
