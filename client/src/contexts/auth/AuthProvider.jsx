@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     const navigate = useNavigate();
-      const location = useLocation();
+    const location = useLocation();
 
     const registerMutation = useMutation({ mutationFn: register });
     const loginMutation = useMutation({ mutationFn: login });
@@ -62,10 +62,16 @@ const AuthProvider = ({ children }) => {
             setUser(meQuery.data.data.user);
         }
         if (meQuery.isError) {
+            if (meQuery.error.message === 'Network Error') {
+                toast("Internal server error");
+            } else {
+                toast(meQuery.error?.response?.data?.error);
+            }
             clearUserData();
-            toast(meQuery.error.response.data.error);
             navigate('/login', { replace: true });
         }
+
+        loginMutation.isError && loginMutation.error.message === 'Network Error'
     } , [meQuery.isSuccess, meQuery.isError]);
 
     const value = {

@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 
 const validateRegisterData = async (registerData) => {
-    const fullName = (registerData && registerData?.fullName )|| '';
+    const fullName = (registerData && registerData?.fullName) || '';
     const email = (registerData && registerData?.email) || '';
     const password = (registerData && registerData?.password) || '';
 

@@ -37,7 +37,7 @@ const LoggedUserNav = () => {
             
             </Link>
 
-            <button ref={dropdownButtonRef} className='relative' type='button' onClick={toggleDropdownVisibility}>
+            <div ref={dropdownButtonRef} className='relative cursor-pointer select-none' type='button' onClick={toggleDropdownVisibility}>
 
                 <img className='w-8 h-8 rounded-full' src={user.personalInfo.profileImage} alt='User profile image' />
 
@@ -59,7 +59,7 @@ const LoggedUserNav = () => {
                     
                     </Link>
 
-                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to='/dashboard'>
+                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to='/dashboard/blogs'>
 
                         <IonIcon icon={gridOutline} />
 
@@ -67,7 +67,7 @@ const LoggedUserNav = () => {
                     
                     </Link>
 
-                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to='/dashboard/edit-profile'>
+                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to='/settings/edit-profile'>
 
                         <IonIcon icon={pencilOutline} />
 
@@ -93,10 +93,9 @@ const LoggedUserNav = () => {
 
                 </div>
 
-            </button>
+            </div>
 
         </div>
-    
     );
 };
 

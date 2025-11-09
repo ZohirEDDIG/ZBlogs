@@ -1,3 +1,4 @@
 import useClickOutside from './useClickOutside';
+import useAutoResizeTextarea from './useAutoResizeTextarea'
 
-export { useClickOutside };
+export { useClickOutside, useAutoResizeTextarea };
