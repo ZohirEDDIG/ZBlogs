@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useWrite from '../context/useWrite';
 
 const Nav = () => {
-    const { handlePublish, handleSaveDraft } = useWrite();
+    const { handlePublish, handleSaveDraft, uploadBlogMutation } = useWrite();
 
     return (
         <nav className='bg-white'>
@@ -24,9 +24,23 @@ const Nav = () => {
 
                 <div className='flex items-center gap-x-2 sm:gap-x-4'>
 
-                    <button className='bg-black text-white text-sm md:text-base px-4 py-1.5 rounded-full' type='button' onClick={handlePublish}>Publish</button>
+                    <button 
+                        className={`bg-black text-white text-sm md:text-base px-4 py-1.5 rounded-full ${uploadBlogMutation.isPending && 'opacity-60 cursor-auto! pointer-events-none'} transition-shadow duration-300 ease-in-out hover:shadow-lg`}
+                        type='button' 
+                        onClick={handlePublish}
+                        disabled={uploadBlogMutation.isPending}
+                    >
+                        Publish
+                    </button>
 
-                    <button className='bg-gray-100 text-sm md:text-base px-4 py-1.5 rounded-full' type='button' onClick={handleSaveDraft}>Save Draft</button>
+                    <button 
+                        className={`bg-gray-100 text-sm md:text-base px-4 py-1.5 rounded-full ${uploadBlogMutation.isPending && 'opacity-60 cursor-auto! pointer-events-none'}  transition-shadow duration-300 ease-in-out hover:shadow-lg`}
+                        type='button'
+                        onClick={handleSaveDraft}
+                        disabled={uploadBlogMutation.isPending}
+                    >
+                        Save Draft
+                    </button>
 
                 </div>
 

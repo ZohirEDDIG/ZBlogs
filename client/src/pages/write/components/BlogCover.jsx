@@ -6,7 +6,7 @@ const BlogCover = () => {
     return (
         <div className='flex flex-col gap-y-4'>
 
-            <div className='bg-gray-100 lg:w-[900px] lg:mx-auto border-2 border-gray-300 border-dashed aspect-video'>
+            <div className='bg-gray-100 lg:w-[900px] lg:mx-auto border-2 border-gray-300 border-dashed aspect-video transition-colors duration-300 ease-in-out hover:bg-gray-50'>
 
                 <label className='text-gray-500 w-full h-full flex justify-center items-center cursor-pointer select-none' htmlFor='blog-cover'>
 

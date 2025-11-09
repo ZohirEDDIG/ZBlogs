@@ -1,6 +1,6 @@
 const LoginWithGoogle = () => {
     return (
-        <button className='py-1 border-[1.5px] border-gray-300 rounded-full flex justify-center items-center gap-x-2' type='button'> 
+        <button className='py-2 border-[1.5px] border-gray-300 rounded-full flex justify-center items-center gap-x-2 transition-shadow duration-300 ease-in-out hover:shadow-lg' type='button'> 
 
             <div>
 

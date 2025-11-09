@@ -253,7 +253,8 @@ const WriteProvider = ({ children }) => {
         editorDataError,
         setEditorDataError,
         handlePublish,
-        handleSaveDraft
+        handleSaveDraft,
+        uploadBlogMutation
     };
 
     return (

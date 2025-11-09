@@ -52,7 +52,7 @@ const Login = () => {
                     <form className='flex flex-col gap-y-2' onSubmit={handleSubmit(onSubmit)} noValidate>
 
                         {/* Email */}
-                        <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'> 
+                        <div className='bg-gray-100 px-4 py-2 border-1 border-gray-200 rounded-full flex items-center gap-x-2 transition-all duration-300 ease-in-out  focus-within:border-violet-300'> 
 
                             <IonIcon icon={mailOutline} />
 
@@ -67,15 +67,15 @@ const Login = () => {
                         {loginMutation.isError && loginMutation.error?.response?.data?.errors?.email?.message && <p className='error'>{loginMutation.error.response.data.errors.email.message}</p>} 
 
                         {/* Password */}
-                        <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'>
+                        <div className='bg-gray-100 px-4 py-2 border-1 border-gray-200 rounded-full flex items-center gap-x-2  transition-all duration-300 ease-in-out  focus-within:border-violet-300'>
 
                             <IonIcon icon={keyOutline} />
 
                             <input className='w-full' type={isPasswordVisible ? 'text' : 'password'} {...register('password', loginPasswordValidator)} placeholder='Password' onFocus={(e) => resetMutation(e, loginMutation)}  />
 
-                            <button type='button' onClick={togglePasswordVisibility}>
+                            <button className='flex text-gray-400 transition-colors duration-300 ease-in-out hover:text-black' type='button' onClick={togglePasswordVisibility}>
 
-                                <IonIcon icon={isPasswordVisible ? eyeOffOutline : eyeOutline} />
+                                <IonIcon icon={isPasswordVisible ?  eyeOutline : eyeOffOutline} />
 
                             </button>
 
@@ -94,15 +94,21 @@ const Login = () => {
                         {loginMutation.isError && loginMutation.error.message === 'Network Error' && <p className='error'>Internal server error</p>}
 
                         {/* Forgot Password */}
-                        <Link className='text-gray-600 text-sm underline' to='/recover'>Forgot yout Password?</Link>
+                        <Link className='text-gray-600 text-sm underline transition-colors duration-300 ease-in-out hover:text-black' to='/recover'>Forgot yout Password?</Link>
 
                         {/* Login Button */}
-                        <button className='bg-black text-white px-4 py-2 rounded-full' type='submit'>Login</button>
+                        <button 
+                            className={`bg-black text-white px-4 py-2 rounded-full ${loginMutation.isPending && 'cursor-auto! opacity-60 pointer-events-none'} transition-shadow duration-300 ease-in-out hover:shadow-lg`}
+                            type='submit'
+                            disabled={loginMutation.isPending}
+                        >
+                            {loginMutation.isPending ? 'Logging in...' : 'Login'}
+                        </button>
 
                     </form>
 
                     {/* Dont have an account */}
-                    <p className='text-gray-600 text-sm'>You don't have an account? <Link className='text-black underline' to='/register'>Register</Link></p>
+                    <p className='text-gray-600 text-sm'>You don't have an account? <Link className='underline transition-colors duration-300 ease-in-out hover:text-black' to='/register'>Register</Link></p>
 
                 </div>
 

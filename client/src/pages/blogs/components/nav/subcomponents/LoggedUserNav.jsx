@@ -43,7 +43,7 @@ const LoggedUserNav = () => {
 
                 <div ref={dropdownRef} className={`w-[180px] bg-gray-100 py-4 rounded-md flex flex-col gap-y-2 cursor-auto select-text absolute right-0 ${dropdownVisible ? 'top-14' : '-top-[300px]'} -z-10 transition-all duration-300 ease-in-out`}>
 
-                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to='/write'>
+                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center gap-x-2 transition-colors duration-300 ease-in-out hover:bg-gray-200' to='/write'>
 
                         <IonIcon icon={documentOutline} />
 
@@ -51,7 +51,7 @@ const LoggedUserNav = () => {
                     
                     </Link>
 
-                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to={`/profile/${user.personalInfo.username}`}>
+                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-colors duration-300 ease-in-out hover:bg-gray-200' to={`/profile/${user.personalInfo.username}`}>
 
                         <IonIcon icon={personOutline} />
 
@@ -59,7 +59,7 @@ const LoggedUserNav = () => {
                     
                     </Link>
 
-                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to='/dashboard/blogs'>
+                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-colors duration-300 ease-in-out hover:bg-gray-200' to='/dashboard/blogs'>
 
                         <IonIcon icon={gridOutline} />
 
@@ -67,7 +67,7 @@ const LoggedUserNav = () => {
                     
                     </Link>
 
-                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' to='/settings/edit-profile'>
+                    <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center  gap-x-2 transition-colors duration-300 ease-in-out hover:bg-gray-200' to='/settings/edit-profile'>
 
                         <IonIcon icon={pencilOutline} />
 
@@ -81,7 +81,7 @@ const LoggedUserNav = () => {
 
                         <h6 className='w-full text-left text-gray-600 px-4 cursor-auto select-text'>@{user.personalInfo.username}</h6>
 
-                        <div  className='w-full text-gray-500 px-4  py-2  flex items-center gap-x-2 transition-all duration-300 ease-in-out hover:bg-gray-200' onClick={logout}>
+                        <div  className='w-full text-gray-500 px-4  py-2  flex items-center gap-x-2 transition-colors duration-300 ease-in-out hover:bg-gray-200' onClick={logout}>
 
                             <IonIcon icon={logOutOutline} />
 

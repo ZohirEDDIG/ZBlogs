@@ -53,7 +53,7 @@ const Register = () => {
                     <form className='flex flex-col gap-y-2' onSubmit={handleSubmit(onSubmit)} noValidate>
 
                         {/* Full Name */}
-                        <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'>
+                        <div className='bg-gray-100 px-4 py-2 border-1 border-gray-200 rounded-full flex items-center gap-x-2 transition-all duration-300 ease-in-out focus-within:border-violet-300'>
 
                             <IonIcon icon={personOutline} />
                             
@@ -68,7 +68,7 @@ const Register = () => {
                         {registerMutation.isError && registerMutation.error?.response?.data?.errors?.fullName?.message && <p className='error'>{registerMutation.error.response.data.errors.fullName.message}</p>} 
 
                         {/* Email */}
-                        <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'>
+                        <div className='bg-gray-100 px-4 py-2 border-1 border-gray-200 rounded-full flex items-center gap-x-2 transition-all duration-300 ease-in-out focus-within:border-violet-300'>
 
                             <IonIcon icon={mailOutline} />
 
@@ -83,15 +83,15 @@ const Register = () => {
                         {registerMutation.isError && registerMutation.error?.response?.data?.errors?.email?.message && <p className='error'>{registerMutation.error.response.data.errors.email.message}</p>} 
 
                         {/* Password */}
-                        <div className='bg-gray-100 px-4 py-2 rounded-full flex items-center gap-x-2'>
+                        <div className='bg-gray-100 px-4 py-2 border-1 border-gray-200 rounded-full flex items-center gap-x-2 transition-all duration-300 ease-in-out focus-within:border-violet-300'>
 
                             <IonIcon icon={keyOutline} />
 
                             <input className='w-full' type={isPasswordVisible ? 'text' : 'password'} {...register('password', registerPasswordValidator)} placeholder='Password' onFocus={(e) => resetMutation(e, registerMutation)}/>
 
-                            <button type='button' onClick={togglePasswordVisibility}>
+                            <button className='flex text-gray-400 transition-colors duration-300 ease-in-out hover:text-black' type='button' onClick={togglePasswordVisibility}>
 
-                                <IonIcon icon={isPasswordVisible ? eyeOutline : eyeOffOutline} />
+                                <IonIcon icon={isPasswordVisible ?  eyeOutline : eyeOffOutline} />
 
                             </button>
 
@@ -110,15 +110,21 @@ const Register = () => {
                         {registerMutation.isError && registerMutation.error.message === 'Network Error' && <p className='error'>Internal server error</p>}
 
                         {/* Terms and Privacy */}
-                        <p className='text-gray-600 text-[8px] text-center'>By registering an account you agree to our <Link className='text-black underline' to='/terms'>User agreement</Link> and <Link className='text-black underline' to='/privacy'>Privacy policy</Link>.</p>
+                        <p className='text-gray-600 text-[9px] text-center'>By registering an account you agree to our <Link className='underline transition-colors duration-300 ease-in-out hover:text-black' to='/terms'>User agreement</Link> and <Link className='underline transition-colors duration-300 ease-in-out hover:text-black' to='/privacy'>Privacy policy</Link>.</p>
 
                         {/* Register Button */}
-                        <button className='bg-black text-white px-4 py-2 rounded-full' type='submit'>Register</button>
+                        <button 
+                            className={`bg-black text-white px-4 py-2 rounded-full ${registerMutation.isPending && 'cursor-auto! opacity-80 pointer-events-none'} transition-shadow duration-300 ease-in-out hover:shadow-lg`}
+                            type='submit'
+                            disabled={registerMutation.isLoading}
+                        >
+                            {registerMutation.isLoading ? 'Registering...' : 'Register'}
+                        </button>
 
                     </form>
 
                     {/* Already have an account */}
-                    <p className='text-gray-600 text-sm'>Already have an account? <Link className='text-black underline' to='/login'>Login</Link></p>
+                    <p className='text-gray-600 text-sm'>Already have an account? <Link className='underline transition-colors duration-300 ease-in-out hover:text-black' to='/login'>Login</Link></p>
 
                 </div>
 

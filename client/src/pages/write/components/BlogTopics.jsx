@@ -11,7 +11,7 @@ const BlogTopics = () => {
 
             <label className='text-gray-400 text-sm sm:text-xl' htmlFor='topic'>Topics - (Help searching and ranking your blog post)</label>
 
-            <div className='bg-gray-100 p-4 rounded-md flex flex-col gap-y-4'>
+            <div className='bg-gray-100 p-4 border border-gray-200 rounded-md flex flex-col gap-y-4 transition-colors duration-300 ease-in-out focus-within:border-violet-300'>
 
                 <input 
                     className='bg-white text-gray-600 p-2 rounded-md placeholder:text-gray-400' 
