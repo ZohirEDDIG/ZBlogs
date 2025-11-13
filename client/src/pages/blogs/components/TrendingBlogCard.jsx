@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 
+import { format } from 'date-fns';
+
 const TrendingBlogCard = ({ number, blog }) => {
     return (
         <div className='flex items-start gap-x-5'>  
 
-            <h1 className='text-gray-100 text-6xl font-bold'>0{number}</h1>
+            <h1 className='text-gray-100 text-4xl sm:text-6xl font-bold'>0{number}</h1>
 
             <div className='flex flex-col gap-y-2'>
 
@@ -16,11 +18,13 @@ const TrendingBlogCard = ({ number, blog }) => {
 
                     </div>
 
-                    <span className='text-gray-500 text-sm'>@{blog.author.personalInfo.username}</span>
+                    <span className='text-gray-500 text-xs sm:text-sm'>@{blog.author.personalInfo.username}</span>
+
+                    <span className='text-gray-500 text-xs sm:text-sm'>{format(new Date(blog.createdAt), 'dd LLL yyyy')}</span>
 
                 </Link>
 
-                <Link to={`/blog/${blog.blogId}`}  className='text-2xl  line-clamp-2'>{blog.title}</Link>
+                <Link to={`/blog/${blog.blogId}`}  className='text-xl sm:text-2xl line-clamp-2'>{blog.title}</Link>
 
             </div>
 
