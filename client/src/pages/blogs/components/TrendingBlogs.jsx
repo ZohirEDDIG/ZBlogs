@@ -1,14 +1,12 @@
 import useBlogs from '../context/useBlogs';
 
-import Loading  from './Loading';
-import NoDataFound from './NoDataFound';
-import TrendingBlogCard from './TrendingBlogCard';
+import { Loading, NoDataFound, TrendingBlogCard } from './';
 
 const TrendingBlogs = () => {
     const { getTrendingBlogsQuery } = useBlogs();
 
     return (
-        <div className='h-full flex flex-col gap-y-10'>
+        <div className='h-full pb-6 flex flex-col gap-y-10'>
             {
                 getTrendingBlogsQuery.isPending 
 

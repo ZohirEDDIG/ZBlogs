@@ -3,7 +3,7 @@ import { trendingUpOutline } from 'ionicons/icons';
 
 import useBlogs from './context/useBlogs';
 
-import { Nav, LocalNav, LatestBlogs, TrendingBlogs, Topics, TopicBlogs } from './components';
+import { Nav, LocalNav, LatestBlogs, TrendingBlogs, Topics, TopicBlogs, Pagination } from './components';
 
 const Blogs = () => {
     const { blogsToShow } = useBlogs();

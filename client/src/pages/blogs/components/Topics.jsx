@@ -2,8 +2,7 @@ import { capitalize } from '@/helpers';
 
 import useBlogs from '../context/useBlogs';
 
-import Loading from './Loading';
-import NoDataFound from './NoDataFound';
+import { Loading, NoDataFound } from './';
 
 const Topics = () => {
     const { topic, handleSetTopic, getTopicsQuery } = useBlogs();
