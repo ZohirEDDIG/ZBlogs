@@ -3,6 +3,10 @@
 @import 'tailwindcss';
 
 @layer components {
+    .h-screen-minus-header {
+        @apply h-[calc(100vh-75px)]
+    }
+
     .ctn {
         @apply p-4 sm:px-8 md:px-16
     }

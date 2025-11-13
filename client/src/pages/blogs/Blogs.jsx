@@ -3,32 +3,42 @@ import { trendingUpOutline } from 'ionicons/icons';
 
 import useBlogs from './context/useBlogs';
 
-import { Nav, LocalNav, LatestBlogs, TrendingBlogs, Topics } from './components';
+import { Nav, LocalNav, LatestBlogs, TrendingBlogs, Topics, TopicBlogs } from './components';
 
 const Blogs = () => {
     const { blogsToShow } = useBlogs();
+
+
 
     return (
         <>
             <Nav />
 
-            <main>
+            <main className='h-screen-minus-header'>
 
-                <div className='ctn grid xl:grid-cols-3 gap-x-10'>
+                <div className='h-full ctn grid xl:grid-cols-3 gap-x-10'>
 
-                    <div className='flex flex-col gap-y-8 col-span-2'>
+                    <div className='h-full flex flex-col gap-y-8 col-span-2'>
 
                         <LocalNav />
 
                         {
-                            blogsToShow === 'latest' ? <LatestBlogs /> : <TrendingBlogs />
+                            blogsToShow === 'latest' 
+                            
+                            ?   <LatestBlogs /> 
+                            
+                            :   blogsToShow === 'trending'
+
+                            ?   <TrendingBlogs />
+
+                            :   <TopicBlogs />
                         }
 
                     </div>
 
-                    <div className='border-l border-gray-100 pl-4 max-xl:hidden flex flex-col gap-y-8'>
+                    <div className='h-full border-l border-gray-100 pl-4 max-xl:hidden flex flex-col gap-y-8'>
 
-                        <h1 className='text-2xl'>Stories from all interests</h1>
+                        <h1 className='text-2xl'>Stories from different topics</h1>
 
                         <div className='flex items-center gap-x-4'>
 

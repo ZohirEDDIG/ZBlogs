@@ -1,16 +1,17 @@
 import useBlogs from '../context/useBlogs';
 
+import Loading  from './Loading';
 import TrendingBlogCard from './TrendingBlogCard';
 
 const TrendingBlogs = () => {
     const { getTrendingBlogsQuery } = useBlogs();
 
     return (
-        <div className='flex flex-col gap-y-10'>
+        <div className='h-full flex flex-col gap-y-10'>
             {
                 getTrendingBlogsQuery.isPending 
 
-                ?   <p>Fetching Trending Blogs...</p>
+                ?   <Loading loadingMessage='Fetching Trending Blogs' />
 
                 :   getTrendingBlogsQuery.isSuccess 
 

@@ -3,7 +3,7 @@ import { search } from 'ionicons/icons';
 
 const SearchBox = () => {
     return (
-        <div className='max-sm:max-w-[200px]  border-1 border-gray-200 bg-gray-100 px-4 py-2 rounded-full flex justify-between transition-all duration-300 ease-in-out  focus-within:border-violet-300'>
+        <div className='w-[200px] lg:w-[300px] border-1 border-gray-200 bg-gray-100 px-2 py-2 sm:px-4 sm:py-2 rounded-full flex justify-between transition-all duration-300 ease-in-out  focus-within:border-violet-300'>
 
             <input className='max-w-[90%] group' type='search' name='search' placeholder='Search here...' />
 

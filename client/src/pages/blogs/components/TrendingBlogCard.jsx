@@ -26,6 +26,22 @@ const TrendingBlogCard = ({ number, blog }) => {
 
                 <Link to={`/blog/${blog.blogId}`}  className='text-xl sm:text-2xl line-clamp-2'>{blog.title}</Link>
 
+                <div className='flex flex-wrap items-center gap-2'>
+
+                    {
+
+                        blog.topics.map((topic, index) => {
+
+                            if (index > 2) return;
+
+                            return <span key={index} className='text-xs sm:text-sm text-gray-500'>#{topic}</span>;
+
+                        })
+
+                    }
+
+                </div>
+
             </div>
 
         </div>

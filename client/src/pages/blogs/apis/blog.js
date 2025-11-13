@@ -14,4 +14,9 @@ const getTopics = () => {
     return axios.get(`${API_URL}/blogs/topics`);
 };
 
-export { getLatestBlogs, getTrendingBlogs, getTopics };
+const getTopicBlogs = (topic) => {
+    console.log(`${API_URL}/blogs/topic/${topic}`);
+    return axios.get(`${API_URL}/blogs/topic/${topic}`);
+}
+
+export { getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs };

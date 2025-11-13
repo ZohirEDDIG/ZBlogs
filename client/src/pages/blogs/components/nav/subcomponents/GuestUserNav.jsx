@@ -15,9 +15,9 @@ const GuestUserNav = () => {
                                     
             </Link>
 
-            <Link className='bg-black text-white text-sm md:text-base px-4 py-1.5 rounded-full transition-shadow duration-300 ease-in-out hover:shadow-lg' to='/login'>Login</Link>
+            <Link className='bg-black text-white text-sm md:text-base px-4 py-2 rounded-full transition-shadow duration-300 ease-in-out hover:shadow-lg' to='/login'>Login</Link>
 
-            <Link className='bg-gray-100 text-sm md:text-base px-4 py-1.5 rounded-full max-sm:hidden transition-shadow duration-300 ease-in-out hover:shadow-lg' to='/register'>Register</Link>
+            <Link className='bg-gray-100 text-sm md:text-base px-4 py-2 rounded-full max-sm:hidden transition-shadow duration-300 ease-in-out hover:shadow-lg' to='/register'>Register</Link>
 
         </div>
     );
