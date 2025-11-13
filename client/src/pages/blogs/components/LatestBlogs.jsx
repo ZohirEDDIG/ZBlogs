@@ -2,7 +2,7 @@ import useBlogs from '../context/useBlogs';
 
 import Loading from './Loading';
 import LatestBlogCard from './LatestBlogCard';
-
+import NoDataFound from './NoDataFound';
 
 const LatestBlogs = () => {
     const { getLatestBlogsQuery } = useBlogs();
@@ -16,13 +16,19 @@ const LatestBlogs = () => {
 
                 :   getLatestBlogsQuery.isSuccess 
 
-                ?    
+                ?   
+                    (
+                        getLatestBlogsQuery.data.data.blogs.length === 0
 
-                    getLatestBlogsQuery.data.data.blogs.map((blog) => (
+                        ?   <NoDataFound noDataFoundMessage='No Blogs Found' />
 
-                        <LatestBlogCard key={blog.blogId} blog={blog} />
+                        :   getLatestBlogsQuery.data.data.blogs.map((blog) => (
 
-                    ))
+                            <LatestBlogCard key={blog.blogId} blog={blog} />
+
+                        ))
+
+                    )
 
                 :   getLatestBlogsQuery.isError
 

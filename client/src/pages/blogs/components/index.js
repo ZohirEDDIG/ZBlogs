@@ -6,5 +6,6 @@ import LatestBlogCard from './LatestBlogCard';
 import TopicBlogs from './TopicBlogs';
 import Topics from './Topics';
 import Loading from './Loading';
+import NoDataFound from './NoDataFound';
 
-export { Nav, LocalNav, LatestBlogs, TrendingBlogs, LatestBlogCard, Topics, TopicBlogs, Loading };
+export { Nav, LocalNav, LatestBlogs, TrendingBlogs, LatestBlogCard, Topics, TopicBlogs, Loading, NoDataFound };

@@ -1,6 +1,7 @@
 import useBlogs from '../context/useBlogs';
 
 import Loading  from './Loading';
+import NoDataFound from './NoDataFound';
 import TrendingBlogCard from './TrendingBlogCard';
 
 const TrendingBlogs = () => {
@@ -15,13 +16,19 @@ const TrendingBlogs = () => {
 
                 :   getTrendingBlogsQuery.isSuccess 
 
-                ?    
+                ?   (
 
-                    getTrendingBlogsQuery.data.data.blogs.map((blog, index) => (
+                    getTrendingBlogsQuery.data.data.blogs.length === 0
 
-                        <TrendingBlogCard key={blog.blogId} number={index + 1} blog={blog} />
+                    ?   <NoDataFound noDataFoundMessage='No Blogs Found' />
 
-                    ))
+                    :   (
+                            getTrendingBlogsQuery.data.data.blogs.map((blog, index) => (
+
+                                <TrendingBlogCard key={blog.blogId} number={index + 1} blog={blog} />
+                            ))
+                     )
+                    )
 
                 :   getTrendingBlogsQuery.isError
 
