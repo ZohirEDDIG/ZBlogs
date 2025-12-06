@@ -115,12 +115,21 @@ const uploadBlog = async (req, res) => {
 
 const getLatestBlogs = async (req, res) => {
     try {
-        const blogs = await Blog.find({ isDraft: false })
-        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
-        .sort({ createdAt: -1 })
-        .select("-_id blogId cover title description topics activity createdAt");
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 2;
 
-        return res.status(200).json({ blogs });
+        const skip = (page - 1) * limit;
+
+        const total = await Blog.countDocuments();
+
+        const blogs = await Blog.find({ isDraft: false })
+        .skip(skip)
+        .limit(limit)
+        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
+        .select("-_id blogId cover title description topics activity createdAt")
+        .sort({ createdAt: -1 });
+
+        return res.status(200).json({ blogs, totalPages: Math.ceil(total / limit), });
     } catch (error) {
         console.error('Failed to fetch latest blogs:', error);
         return res.status(500).json({ error: 'Failed to fetch latest blogs' });
@@ -173,6 +182,5 @@ const getTopicBlogs = async (req, res) => {
         return res.status(500).json({ error: 'Failed to fetch topic blogs' });
     }
 }
-
 
 export { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs };
