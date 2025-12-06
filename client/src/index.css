@@ -7,10 +7,6 @@
         @apply h-[calc(100vh-75px)]
     }
 
-    .ctn {
-        @apply p-4 sm:px-8 md:px-16
-    }
-
     .error {
         @apply text-red-600 text-xs sm:text-sm;
     }

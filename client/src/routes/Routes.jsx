@@ -17,13 +17,16 @@ const Routes = () => {
             <Route path='/' element={<BlogsProvider><Blogs /></BlogsProvider>} />
             <Route path='/login' element={<GuestRoute><Login /></GuestRoute>} />
             <Route path='/register' element={<GuestRoute><Register /></GuestRoute>} />
-            <Route path='/write' element={
-                <ProtectedRoute>
-                    <WriteProvider>
-                        <Write />
-                    </WriteProvider>
-                </ProtectedRoute>
-            } />
+            <Route
+                path='/write'
+                element={
+                    <ProtectedRoute>
+                        <WriteProvider>
+                            <Write />
+                        </WriteProvider>
+                    </ProtectedRoute>
+                }
+            />
         </RRDRoutes>
     );
 };

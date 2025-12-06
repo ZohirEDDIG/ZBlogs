@@ -8,15 +8,13 @@ import { Nav, LocalNav, LatestBlogs, TrendingBlogs, Topics, TopicBlogs, Paginati
 const Blogs = () => {
     const { blogsToShow } = useBlogs();
 
-
-
     return (
         <>
             <Nav />
 
             <main className='h-screen-minus-header'>
 
-                <div className='h-full ctn grid xl:grid-cols-3 gap-x-10'>
+                <div className='h-full container p-4 mx-auto grid xl:grid-cols-3 gap-x-10'>
 
                     <div className='h-full flex flex-col gap-y-8 col-span-2'>
 

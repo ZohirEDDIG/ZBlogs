@@ -7,7 +7,7 @@ const Write = () => {
 
             <main>
 
-                <div className='ctn flex flex-col gap-y-12'>
+                <div className='container p-4 mx-auto flex flex-col gap-y-12'>
 
                     <BlogCover />
 

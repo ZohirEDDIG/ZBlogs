@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import BlogsContext from './BlogsContext';
@@ -9,7 +9,29 @@ const BlogsProvider = ({ children }) => {
     const [topic, setTopic] = useState(''); 
     const [localNavMainTab, setLocalNavMainTab] = useState('home');
 
-    const getLatestBlogsQuery =  useQuery({ queryKey: ['latest-blogs'], queryFn: getLatestBlogs });
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const getLatestBlogsQuery =  useQuery({ queryKey: ['latest-blogs', currentPage], queryFn:  async () => {
+        const data = await getLatestBlogs(currentPage);
+        return data;
+    }});
+
+    useEffect(() => {
+        if (getLatestBlogsQuery.isSuccess) {
+            setTotalPages(getLatestBlogsQuery.data.data.totalPages);
+        }
+    }, [getLatestBlogsQuery.isSuccess]);
+
+    const handleNextPage = () => {
+        if (currentPage === totalPages) return;
+        setCurrentPage((prev) => prev + 1);
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage === 1) return;
+        setCurrentPage((prev) => prev - 1);
+    };
 
     const getTrendingBlogsQuery =  useQuery({ queryKey: ['trending-blogs'], queryFn: getTrendingBlogs });
 
@@ -36,6 +58,10 @@ const BlogsProvider = ({ children }) => {
         handleSetTopic,
         localNavMainTab, 
         getLatestBlogsQuery,
+        currentPage, 
+        totalPages,
+        handleNextPage, 
+        handlePreviousPage,
         getTrendingBlogsQuery,
         getTopicsQuery,
         getTopicBlogsQuery
