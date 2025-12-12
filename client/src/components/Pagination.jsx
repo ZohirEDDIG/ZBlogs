@@ -1,13 +1,7 @@
 import { IonIcon } from '@ionic/react';
 import { chevronForwardOutline, chevronBackOutline } from 'ionicons/icons';
 
-import useBlogs from '../../blogs/context/useBlogs';
-
-const Pagination = () => {
-    const { currentPage, totalPages, handleNextPage, handlePreviousPage } = useBlogs();
-
-
-
+const Pagination = ({ currentPage, totalPages, handleNextPage , handlePreviousPage }) => {
     return (
         <div className='my-4 flex justify-center sm:justify-between'>
 

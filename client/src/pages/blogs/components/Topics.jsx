@@ -2,7 +2,7 @@ import { capitalize } from '@/helpers';
 
 import useBlogs from '../context/useBlogs';
 
-import { Loading, NoDataFound } from './';
+import { Loading, NoDataFound } from '@/components';
 
 const Topics = () => {
     const { topic, handleSetTopic, getTopicsQuery } = useBlogs();
@@ -40,15 +40,7 @@ const Topics = () => {
 
                 :   getTopicsQuery.isError
 
-                ?   (
-                    
-                        getTopicsQuery.error.message === 'Network Error'  
-
-                        ? <p className='error'>Somthing went wrong</p> 
-
-                        : <p className='error'>{getTopicsQuery.error?.response?.data?.error}</p>
-                        
-                    )
+                ?   <p className='error'>Something went wrong while fetching topics. Please refresh the page or try again later</p> 
 
                 :   null
             }

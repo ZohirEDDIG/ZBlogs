@@ -20,7 +20,4 @@ const uploadBlog = ({ blogData, token }) => {
     });
 };
 
-
-
-
 export { uploadImageByFile, uploadBlog };

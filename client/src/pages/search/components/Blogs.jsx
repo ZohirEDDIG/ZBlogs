@@ -1,35 +1,37 @@
-import useBlogs from '../context/useBlogs';
-
 import { Loading, NoDataFound, Pagination } from '@/components';
-import { LatestBlogCard } from './';
 
-const LatestBlogs = () => {
-    const { getLatestBlogsQuery, currentPage, totalPages, handleNextPage , handlePreviousPage } = useBlogs();
+import BlogCard from './BlogCard';
+
+import useSearch from '../context/useSearch';
+
+const Blogs = () => {
+    const { query, getSearchBlogsQuery, currentPage, totalPages, handleNextPage , handlePreviousPage } = useSearch();
 
     return (
         <div className='h-full flex flex-col gap-y-10'>
             {
-                getLatestBlogsQuery.isPending 
+                getSearchBlogsQuery.isPending 
 
-                ?   <Loading loadingMessage='Fetching Latest Blogs' />
+                ?   <Loading loadingMessage={`Fetching ${query} Blogs`} />
 
-                :   getLatestBlogsQuery.isSuccess 
+                :   getSearchBlogsQuery.isSuccess 
 
                 ?   
                     (
-                        getLatestBlogsQuery.data.data.blogs.length == 0
+                        getSearchBlogsQuery.data.data.blogs.length == 0
 
                         ?   <NoDataFound noDataFoundMessage='No Blogs Found' />
 
                         :   <>
                             
                                 {
-                                    getLatestBlogsQuery.data.data.blogs.map((blog) => (
+                                    getSearchBlogsQuery.data.data.blogs.map((blog) => (
 
-                                        <LatestBlogCard key={blog.blogId} blog={blog} />
+                                        <BlogCard key={blog.blogId} blog={blog} />
 
                                     ))
                                 }
+
 
                                 <Pagination 
                                     currentPage={currentPage}
@@ -41,9 +43,9 @@ const LatestBlogs = () => {
                             </>
                     )
 
-                :   getLatestBlogsQuery.isError
+                :   getSearchBlogsQuery.isError
 
-                ?   <p className='error'>Something went wrong while fetching latest blogs. Please refresh the page or try again later</p> 
+                ?   <p className='error'>Something went wrong while fetching '{query}' blogs. Please refresh the page or try again later</p> 
 
                 :   null
             }
@@ -51,4 +53,4 @@ const LatestBlogs = () => {
     );
 };
 
-export default LatestBlogs;
+export default Blogs;

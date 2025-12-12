@@ -5,13 +5,13 @@ import { heartOutline } from 'ionicons/icons';
 
 import { format } from 'date-fns';
 
-const LatestBlogCard = ({ blog }) => {
+const BlogCard = ({ blog }) => {
     return (
         <div className='grid grid-cols-1 min-[700px]:grid-cols-2 items-center gap-10'>
 
             <div className='flex flex-col gap-y-4'>
 
-                <Link className='flex items-center gap-x-2' to={`/users/${blog.author.personalInfo.username}`}>
+                <Link className='flex items-center gap-x-2' to={`/profile/${blog.author.personalInfo.username}`}>
 
                     <div>
 
@@ -65,4 +65,4 @@ const LatestBlogCard = ({ blog }) => {
     );
 };
 
-export default LatestBlogCard;
+export default BlogCard;

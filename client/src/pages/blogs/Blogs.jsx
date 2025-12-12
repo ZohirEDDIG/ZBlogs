@@ -3,10 +3,13 @@ import { trendingUpOutline } from 'ionicons/icons';
 
 import useBlogs from './context/useBlogs';
 
-import { Nav, LocalNav, LatestBlogs, TrendingBlogs, Topics, TopicBlogs, Pagination } from './components';
+import { capitalize } from '@/helpers'
+
+import { Nav, LocalNav } from '@/components';
+import { LatestBlogs, TrendingBlogs, Topics, TopicBlogs } from './components';
 
 const Blogs = () => {
-    const { blogsToShow } = useBlogs();
+    const { show, setShow, topic } = useBlogs();
 
     return (
         <>
@@ -14,18 +17,30 @@ const Blogs = () => {
 
             <main className='h-screen-minus-header'>
 
-                <div className='h-full container p-4 mx-auto grid xl:grid-cols-3 gap-x-10'>
+                <div className='h-fit container p-4 mx-auto grid xl:grid-cols-3 gap-x-10 xl:divide-x-1 divide-gray-100'>
 
-                    <div className='h-full flex flex-col gap-y-8 col-span-2'>
+                    <div className='h-full pr-8 flex flex-col gap-y-8 col-span-2'>
 
-                        <LocalNav />
+                        <LocalNav 
+                            show={show}
+                            setShow={setShow}
+                            firstTab={{
+                                label: topic ? capitalize(topic): 'Latest Blogs',
+                                identifier: topic ? topic : 'latest',
+                            }} 
+
+                            secondTab={{
+                                label: 'Trending Blogs',
+                                identifier: 'trending',
+                            }}
+                        />
 
                         {
-                            blogsToShow === 'latest' 
+                            show === 'latest' 
                             
                             ?   <LatestBlogs /> 
                             
-                            :   blogsToShow === 'trending'
+                            :   show === 'trending'
 
                             ?   <TrendingBlogs />
 
@@ -34,7 +49,7 @@ const Blogs = () => {
 
                     </div>
 
-                    <div className='h-full border-l border-gray-100 pl-4 max-xl:hidden flex flex-col gap-y-8'>
+                    <div className='max-xl:hidden flex flex-col gap-y-8'>
 
                         <h1 className='text-2xl'>Stories from different topics</h1>
 

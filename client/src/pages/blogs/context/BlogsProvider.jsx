@@ -5,9 +5,8 @@ import BlogsContext from './BlogsContext';
 import { getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs } from '../apis/blog';
 
 const BlogsProvider = ({ children }) => {
-    const [blogsToShow, setBlogsToShow] = useState('latest');
+    const [show, setShow] = useState('latest');
     const [topic, setTopic] = useState(''); 
-    const [localNavMainTab, setLocalNavMainTab] = useState('home');
 
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -16,6 +15,11 @@ const BlogsProvider = ({ children }) => {
         const data = await getLatestBlogs(currentPage);
         return data;
     }});
+
+    useEffect(() => {
+        setCurrentPage(1);
+        setTotalPages(1);
+    }, [topic])
 
     useEffect(() => {
         if (getLatestBlogsQuery.isSuccess) {
@@ -37,31 +41,36 @@ const BlogsProvider = ({ children }) => {
 
     const getTopicsQuery =  useQuery({ queryKey: ['topics'], queryFn: getTopics });
 
-    const getTopicBlogsQuery =  useQuery({ queryKey: ['topic-blogs', topic], queryFn:() => getTopicBlogs(topic), enabled: !!topic });
-
     const handleSetTopic = (t) => {
         if (t === topic) {
             setTopic('');
-            setBlogsToShow('latest');
-            setLocalNavMainTab('home');
+            setShow('latest');
         } else {
             setTopic(t);
-            setBlogsToShow('topic');
-            setLocalNavMainTab(t);
+            setShow('t');
         }
     };
 
+    const getTopicBlogsQuery =  useQuery({ 
+        queryKey: ['topic-blogs', topic], 
+        queryFn: async () => {
+            const data = await getTopicBlogs({ topic, currentPage })
+            return data
+        },
+        enabled: !!topic 
+    });
+
     const value = {
-        blogsToShow,
-        setBlogsToShow,
+        show,
+        setShow,
         topic, 
-        handleSetTopic,
-        localNavMainTab, 
+        setTopic,
         getLatestBlogsQuery,
         currentPage, 
         totalPages,
         handleNextPage, 
         handlePreviousPage,
+        handleSetTopic,
         getTrendingBlogsQuery,
         getTopicsQuery,
         getTopicBlogsQuery

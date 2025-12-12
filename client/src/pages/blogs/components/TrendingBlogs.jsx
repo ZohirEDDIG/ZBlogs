@@ -1,6 +1,8 @@
 import useBlogs from '../context/useBlogs';
 
-import { Loading, NoDataFound, TrendingBlogCard } from './';
+
+import { Loading, NoDataFound } from '@/components';
+import { TrendingBlogCard } from './';
 
 const TrendingBlogs = () => {
     const { getTrendingBlogsQuery } = useBlogs();
@@ -30,15 +32,7 @@ const TrendingBlogs = () => {
 
                 :   getTrendingBlogsQuery.isError
 
-                ?   (
-                    
-                        getTrendingBlogsQuery.error.message === 'Network Error'  
-
-                        ? <p className='error'>Somthing went wrong</p> 
-
-                        : <p className='error'>{getTrendingBlogsQuery.error?.response?.data?.error}</p>
-                        
-                    )
+                ?   <p className='error'>Something went wrong while fetching trending blogs. Please refresh the page or try again later</p> 
 
                 :   null
             }

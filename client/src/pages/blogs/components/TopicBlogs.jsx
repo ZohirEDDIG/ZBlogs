@@ -1,10 +1,11 @@
 import useBlogs from '../context/useBlogs';
 
-import { Loading, NoDataFound, LatestBlogCard, Pagination } from './';
+import { Loading, NoDataFound, Pagination } from '@/components';
+import { LatestBlogCard } from './';
 
 const TopicBlogs = () => {
-    const { topic, getTopicBlogsQuery } = useBlogs();
-
+    const { topic, getTopicBlogsQuery, currentPage, totalPages, handleNextPage , handlePreviousPage } = useBlogs()
+    
     return (
         <div className='h-full flex flex-col gap-y-10'>
             {
@@ -30,7 +31,12 @@ const TopicBlogs = () => {
                                     ))
                                 }
 
-                                <Pagination />
+                                <Pagination 
+                                    currentPage={currentPage}
+                                    totalPages={totalPages}
+                                    handleNextPage={handleNextPage}
+                                    handlePreviousPage={handlePreviousPage} 
+                                />
                             
                             </>
                     )
@@ -41,7 +47,7 @@ const TopicBlogs = () => {
                     
                         getTopicBlogsQuery.error.message === 'Network Error'  
 
-                        ? <p className='error'>Somthing went wrong</p> 
+                        ? <p className='error'>Something went wrong</p> 
 
                         : <p className='error'>{getTopicBlogsQuery.error?.response?.data?.error}</p>
                         
