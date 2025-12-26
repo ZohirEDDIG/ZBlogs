@@ -41,7 +41,7 @@ const LoggedUserNav = () => {
 
                 <img className='w-8 h-8 rounded-full' src={user.personalInfo.profileImage} alt='User profile image' />
 
-                <div ref={dropdownRef} className={`w-[180px] bg-gray-100 py-4 rounded-md flex flex-col gap-y-2 cursor-auto select-text absolute right-0 ${dropdownVisible ? 'top-14' : '-top-[300px]'} -z-10 transition-all duration-300 ease-in-out`}>
+                <div ref={dropdownRef} className={`w-[180px] bg-gray-100 py-4 rounded-md flex flex-col gap-y-2 cursor-auto select-text absolute right-0 ${dropdownVisible ? 'top-14 z-10 ' : '-top-[300px] -z-10'} transition-all duration-300 ease-in-out`}>
 
                     <Link className='w-full text-gray-500 text-sm md:text-base px-4 py-2  flex items-center gap-x-2 transition-colors duration-300 ease-in-out hover:bg-gray-200' to='/write'>
 

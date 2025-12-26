@@ -8,7 +8,7 @@ const Nav = () => {
     return (
         <nav className='bg-white'>
 
-            <div className='ctn border-b border-gray-100 flex justify-between items-center'>
+            <div className='container p-4 mx-auto border-b border-gray-100 flex justify-between items-center'>
 
                 <div className='flex items-center'>
                     
