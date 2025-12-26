@@ -116,7 +116,7 @@ const uploadBlog = async (req, res) => {
 const getLatestBlogs = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 2;
+        const limit = parseInt(req.query.limit) || 20;
 
         const skip = (page - 1) * limit;
 
@@ -129,7 +129,7 @@ const getLatestBlogs = async (req, res) => {
         .select("-_id blogId cover title description topics activity createdAt")
         .sort({ createdAt: -1 });
 
-        return res.status(200).json({ blogs, totalPages: Math.ceil(total / limit), });
+        return res.status(200).json({ blogs, totalPages: Math.ceil(total / limit) });
     } catch (error) {
         console.error('Failed to fetch latest blogs:', error);
         return res.status(500).json({ error: 'Failed to fetch latest blogs' });
@@ -147,7 +147,7 @@ const getTrendingBlogs = async (req, res) => {
     } catch (error) {
         console.error('Failed to fetch trednding blogs:', error);
         return res.status(500).json({ error: 'Failed to fetch trending blogs' });
-    } 
+    }
 }
 
 const getTopics = async (req, res) => {
@@ -183,4 +183,37 @@ const getTopicBlogs = async (req, res) => {
     }
 }
 
-export { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs };
+const getSearchBlogs = async (req, res) => {
+    const query = req.params.query;
+
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+        const skip = (page - 1) * limit;
+
+        const searchObj = {
+            $or: [
+                { title: { $regex: query, $options: "i" } },
+                { description: { $regex: query, $options: "i" } },
+                { topics: { $regex: query, $options: "i" } }
+            ]
+        };
+
+        const total = await Blog.countDocuments(searchObj);
+
+        const blogs = await Blog.find(searchObj)
+        .skip(skip)
+        .limit(limit)
+        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
+        .select("-_id blogId cover title description topics activity createdAt")
+        .sort({ createdAt: -1 });
+
+
+        return res.status(200).json({ blogs, totalPages: Math.ceil(total / limit), });
+    } catch (error) {
+        console.error(`Failed to fetch ${query} blogs`, error);
+        return res.status(500).json({ error: `Failed to fetch ${query} blogs` });
+    }
+}
+
+export { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs, getSearchBlogs };
