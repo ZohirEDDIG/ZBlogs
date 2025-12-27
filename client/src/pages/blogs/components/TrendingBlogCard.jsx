@@ -10,7 +10,7 @@ const TrendingBlogCard = ({ number, blog }) => {
 
             <div className='flex flex-col gap-y-2'>
 
-                <Link className='flex items-center gap-x-2' to={`/users/${blog.author.personalInfo.username}`}>
+                <Link className='flex items-center gap-x-2' to={`/user/${blog.author.personalInfo.username}`}>
 
                     <div>
 

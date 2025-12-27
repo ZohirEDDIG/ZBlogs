@@ -11,7 +11,7 @@ const BlogCard = ({ blog }) => {
 
             <div className='flex flex-col gap-y-4'>
 
-                <Link className='flex items-center gap-x-2' to={`/profile/${blog.author.personalInfo.username}`}>
+                <Link className='flex items-center gap-x-2' to={`/user/${blog.author.personalInfo.username}`}>
 
                     <div>
 

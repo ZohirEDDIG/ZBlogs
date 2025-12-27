@@ -4,7 +4,7 @@ const UserCard = ({ user }) => {
     return (
         <Link 
             className='flex items-center gap-x-4'
-            to={`users/${user.personalInfo.username}`}
+            to={`user/${user.personalInfo.username}`}
         >
 
             <div>
