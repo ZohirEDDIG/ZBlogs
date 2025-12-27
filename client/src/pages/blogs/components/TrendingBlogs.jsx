@@ -8,7 +8,7 @@ const TrendingBlogs = () => {
     const { getTrendingBlogsQuery } = useBlogs();
 
     return (
-        <div className='h-full pb-6 flex flex-col gap-y-10'>
+        <div className='h-full pb-6 flex flex-col gap-y-10' >
             {
                 getTrendingBlogsQuery.isPending 
 

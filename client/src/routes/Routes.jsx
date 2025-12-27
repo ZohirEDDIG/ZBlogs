@@ -5,6 +5,8 @@ import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Write from '../pages/write/Write';
 import Search from '../pages/search/Search';
+import NotFound from '../pages/NotFound';
+
 
 import GuestRoute from '../pages/auth/GuestRoute';
 import ProtectedRoute from '../pages/auth/ProtectedRoute';
@@ -37,6 +39,7 @@ const Routes = () => {
                     </SearchProvider>
                 }
             />
+            <Route path='*' element={<NotFound />} />
         </RRDRoutes>
     );
 };
