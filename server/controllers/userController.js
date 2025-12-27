@@ -13,12 +13,32 @@ export async function getSearchUsers(req, res) {
             ]
         };
 
-        const users = await User.find(searchObj).limit(10);
+        const users = await User.find(searchObj)
+        .select('-_id personalInfo.fullName personalInfo.username personalInfo.profileImage')
+        .limit(10);
 
         return res.status(200).json({ users });
 
     } catch (error) {
         console.error(`Failed to fetch users related to ${query}`, error);
         return res.status(500).json(`Failed to fetch users related to ${query}`, error);
+    };
+}
+
+export async function getUserByUsername(req, res) {
+    const username = req.params.query;
+
+    try {
+        const user = await User.findOne({ 'personalInfo.username': username });
+
+        if (!user) {
+            return res.status(404).json({ error: 'No user found' });
+        }
+
+        return res.status(200).json({ user });
+
+    } catch (error) {
+        console.error(`Failed to fetch user ${username}`, error);
+        return res.status(500).json(`Failed to fetch user ${username}`, error);
     };
 }

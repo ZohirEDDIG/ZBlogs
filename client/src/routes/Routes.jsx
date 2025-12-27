@@ -5,6 +5,7 @@ import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Write from '../pages/write/Write';
 import Search from '../pages/search/Search';
+import User from '../pages/user/User';
 import NotFound from '../pages/NotFound';
 
 
@@ -14,6 +15,7 @@ import ProtectedRoute from '../pages/auth/ProtectedRoute';
 import WriteProvider from '../pages/write/context/WriteProvider';
 import BlogsProvider from '../pages/blogs/context/BlogsProvider';
 import SearchProvider from '../pages/search/context/SearchProvider';
+import UserProvider from '../pages/user/context/UserProvider';
 
 const Routes = () => {
     return (
@@ -37,6 +39,14 @@ const Routes = () => {
                     <SearchProvider>
                         <Search />
                     </SearchProvider>
+                }
+            />
+            <Route 
+                path='/user/:username' 
+                element={
+                    <UserProvider>
+                        <User />
+                    </UserProvider>
                 }
             />
             <Route path='*' element={<NotFound />} />

@@ -12,7 +12,7 @@ const UserCard = ({ user }) => {
                 <img 
                     className='w-10 rounded-full'
                     src={user.personalInfo.profileImage} 
-                    alt="" 
+                    alt={`${user.personalInfo.username} profile image`}
 
                 />
             
