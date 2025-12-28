@@ -42,11 +42,22 @@ const User = () => {
                                             }}
                                         />
 
-                                        <BlogsPublished />
+                                        {
+                                            show === 'blogs' 
+                                            
+                                            ?   <BlogsPublished /> 
+                                            
+                                            :   <Profile user={getUserByUsernameQuery.data.data.user} />
+                                        }
 
                                     </div>
 
-                                    <Profile user={getUserByUsernameQuery.data.data.user} />
+                                    <div className='max-xl:hidden'>
+
+                                        <Profile user={getUserByUsernameQuery.data.data.user} />
+
+                                    </div>
+
 
                                 </div>   
 

@@ -216,4 +216,20 @@ const getSearchBlogs = async (req, res) => {
     }
 }
 
-export { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs, getSearchBlogs };
+const getUserBlogs = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const blogs = await Blog.find({ author: userId})
+        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
+        .select("-_id blogId cover title description topics activity createdAt")
+        .sort({ createdAt: -1 });
+
+        return res.status(200).json({ blogs });
+    } catch (error) {
+        console.error(`Failed to fetch user blogs`, error);
+        return res.status(500).json({ error: `Failed to fetch user blogs` });
+    }
+}
+
+export { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs, getSearchBlogs, getUserBlogs };

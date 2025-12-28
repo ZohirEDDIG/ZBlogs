@@ -1,4 +1,4 @@
-import {useState, useEffect } from 'react';
+import {useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import UserContext from './UserContext';
 
 import { getUserByUsername } from '../apis/user';
+import { getUserBlogs } from '../apis/blog';
 
 const UserProvider = ({ children }) => {
     const { username } = useParams();
@@ -19,11 +20,18 @@ const UserProvider = ({ children }) => {
         enabled: !!username
     });
 
+    const getUserBlogsQuery = useQuery({
+        queryKey: ['user-blogs', username],
+        queryFn: () => getUserBlogs(getUserByUsernameQuery?.data?.data?.user._id),
+        enabled: !!getUserByUsernameQuery?.data?.data?.user._id   
+    });
+
     const value = {
         show,
         setShow,
         username, 
-        getUserByUsernameQuery
+        getUserByUsernameQuery,
+        getUserBlogsQuery
     };
 
     return (

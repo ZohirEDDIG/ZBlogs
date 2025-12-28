@@ -13,7 +13,6 @@ const LocalNav = ({ show, setShow, firstTab, secondTab }) => {
     }, []);
 
     const handleSetActiveIndicatorStyle = (e, s) => {
-        console.log(s);
         setShow(s);
         setActiveIndicatorStyle({
             width: e.target.offsetWidth,
