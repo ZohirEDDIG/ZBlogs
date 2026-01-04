@@ -40,7 +40,7 @@ const Profile = ({ user }) => {
 
                 <span className='text-gray-400 text-sm'>{user.accountInfo.totalPosts} Blogs - {user.accountInfo.totalReads} Reads</span>
 
-                { (currentUser?.personalInfo.username !== user.personalInfo.username) && 
+                { (currentUser?.personalInfo.username === user.personalInfo.username) && 
                 
                     <Link 
                         className='bg-gray-100 text-sm md:text-base px-4 py-2 rounded-md transition-shadow duration-300 ease-in-out hover:shadow-lg'
