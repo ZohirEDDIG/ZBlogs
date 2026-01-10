@@ -4,7 +4,19 @@ import multer from 'multer';
 
 import authMiddleware from '../middlewares/authMiddleware.js';
 
-import { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs, getSearchBlogs, getUserBlogs } from '../controllers/blogController.js';
+import { 
+    uploadImageByFile, 
+    uploadImageByUrl, 
+    uploadBlog, 
+    getLatestBlogs, 
+    getTrendingBlogs, 
+    getTopics, 
+    getTopicBlogs, 
+    getSearchBlogs, 
+    getUserBlogs,
+    getBlog, 
+    getSimilarBlogs
+} from '../controllers/blogController.js';
 
 const router = Router();
 
@@ -19,5 +31,7 @@ router.get('/topics', getTopics);
 router.get('/topic/:topic', getTopicBlogs);
 router.get('/search/:query', getSearchBlogs);
 router.get('/user/:userId', getUserBlogs);
+router.get('/:blogId', getBlog);
+router.post('/similar', getSimilarBlogs);
 
 export default router; 

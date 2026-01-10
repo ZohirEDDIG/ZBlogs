@@ -35,7 +35,6 @@ const Editor = () => {
             tools: {
                 heading: {
                     class: Header,
-                    inlineToolbar: true,
                     config: {
                         levels: [1, 2, 3, 4, 5, 6],
                         defaultLevel: 1,
@@ -59,11 +58,9 @@ const Editor = () => {
                 },
                 list: {
                     class: List,
-                    inlineToolbar: true,
                 },
                 table: {
                     class: Table,
-                    inlineToolbar: true,
                 }, 
                 link: {
                     class: LinkTool
@@ -73,7 +70,6 @@ const Editor = () => {
                 },
                 quote: {
                     class: Quote,
-                    inlineToolbar: true,
                 },
                 code: {
                     class: Code,

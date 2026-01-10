@@ -7,7 +7,7 @@ import Write from '../pages/write/Write';
 import Search from '../pages/search/Search';
 import User from '../pages/user/User';
 import NotFound from '../pages/NotFound';
-
+import Blog from '../pages/blog/Blog';
 
 import GuestRoute from '../pages/auth/GuestRoute';
 import ProtectedRoute from '../pages/auth/ProtectedRoute';
@@ -16,6 +16,7 @@ import WriteProvider from '../pages/write/context/WriteProvider';
 import BlogsProvider from '../pages/blogs/context/BlogsProvider';
 import SearchProvider from '../pages/search/context/SearchProvider';
 import UserProvider from '../pages/user/context/UserProvider';
+import BlogProvider from '../pages/blog/context/BlogProvider';
 
 const Routes = () => {
     return (
@@ -48,6 +49,14 @@ const Routes = () => {
                         <User />
                     </UserProvider>
                 }
+            />
+            <Route 
+                path='/blog/:blogId' 
+                element={
+                    <BlogProvider>
+                        <Blog />
+                    </BlogProvider>
+                } 
             />
             <Route path='*' element={<NotFound />} />
         </RRDRoutes>

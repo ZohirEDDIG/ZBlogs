@@ -232,4 +232,58 @@ const getUserBlogs = async (req, res) => {
     }
 }
 
-export { uploadImageByFile, uploadImageByUrl, uploadBlog, getLatestBlogs, getTrendingBlogs, getTopics, getTopicBlogs, getSearchBlogs, getUserBlogs };
+const getBlog = async (req, res) => {
+    try {
+        const blogId = req.params.blogId;
+
+        const blog = await Blog.findOneAndUpdate({ blogId }, { $inc: { 'activity.totalReads': 1 }})
+        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
+        .select("-_id blogId cover title description content topics activity createdAt");
+
+        if (!blog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+
+        await User.findOneAndUpdate(
+            { 'personalInfo.username': blog.author.personalInfo.username }, 
+            { $inc: { 'accountInfo.totalReads': 1 }
+        }).catch((error) => {
+            console.error(`Failed to update user total reads`, error);
+            return res.status(500).json({ error: `Failed to update user total reads` });
+        });
+        
+        return res.status(200).json({ blog });
+
+    } catch (error) {
+        console.error(`Failed to fetch blog`, error);
+        return res.status(500).json({ error: `Failed to fetch blog` });
+    }
+};
+
+const getSimilarBlogs = async (req, res) => {
+    try {
+        const { topics, limit } = req.body;
+        const blogs = await Blog.find({ topics: { $in: topics } })
+        .populate('author', "-_id personalInfo.fullName personalInfo.username personalInfo.profileImage")
+        .select("-_id blogId cover title description topics activity createdAt")
+        .limit(limit);
+        return res.status(200).json({ blogs });
+    } catch (error) {
+        console.error(`Failed to fetch similar blogs`, error);
+        return res.status(500).json({ error: `Failed to fetch similar blogs` });
+    }
+};
+
+export { 
+    uploadImageByFile, 
+    uploadImageByUrl, 
+    uploadBlog, 
+    getLatestBlogs, 
+    getTrendingBlogs, 
+    getTopics, 
+    getTopicBlogs, 
+    getSearchBlogs, 
+    getUserBlogs,
+    getBlog,
+    getSimilarBlogs
+ };
